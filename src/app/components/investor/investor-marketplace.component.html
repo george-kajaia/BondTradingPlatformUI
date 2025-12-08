@@ -1,0 +1,51 @@
+<div class="marketplace-container">
+  <h2>Marketplace</h2>
+
+  <section class="selector">
+    <label>
+      Company:
+      <select [(ngModel)]="selectedCompanyId" (change)="onCompanyChange()">
+        <option [ngValue]="null">-- select company --</option>
+        <option *ngFor="let c of companies" [ngValue]="c.id">
+          {{ c.name }} (Status: {{ c.status }})
+        </option>
+      </select>
+    </label>
+  </section>
+
+  <section class="bonds">
+    <h3>Bond Requests of Selected Company</h3>
+
+    <table *ngIf="bonds.length > 0" class="grid">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>RegDate</th>
+          <th>Status</th>
+          <th>TotalCount</th>
+          <th>Price</th>
+          <th>Term</th>
+          <th>InterestRate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tr of bonds">
+          <td>{{ tr.id }}</td>
+          <td>{{ tr.regDate | date }}</td>
+          <td>{{ tr.type }}</td>
+          <td>{{ tr.status }}</td>
+          <td>{{ tr.totalCount }}</td>
+          <td>{{ tr.price }}</td>
+          <td>{{ tr.term }}</td>
+          <td>{{ tr.interestRate }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="!bonds.length">No bonds for this company.</p>
+  </section>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <a routerLink="/" class="back-link">Back to main page</a>
+</div>

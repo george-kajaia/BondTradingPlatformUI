@@ -1,6 +1,11 @@
 <div class="marketplace-container">
   <h2>Investor Marketplace</h2>
 
+  <div class="investor-info" *ngIf="investorName">
+    Logged in as: <span class="investor-name">{{ investorName }}</span>
+  </div>
+
+
   <div class="tabs">
     <button
       class="tab"

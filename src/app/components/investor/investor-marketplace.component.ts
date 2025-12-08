@@ -40,6 +40,8 @@ export class InvestorMarketplaceComponent implements OnInit {
 
   investorPublicKey: string | null = null;
 
+  investorName: string | null = null;
+
   // Your Bonds (tab 1)
   yourBonds: BondDto[] = [];
   yourBondsLoading = false;
@@ -83,6 +85,7 @@ export class InvestorMarketplaceComponent implements OnInit {
     }
 
     this.investorPublicKey = investor.publicKey;
+    this.investorName = investor.userName;
 
     // Load initial data for all tabs
     this.loadYourBonds();

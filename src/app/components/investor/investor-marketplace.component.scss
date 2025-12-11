@@ -115,6 +115,15 @@
   color: #111827;
 }
 
+.action-btn.danger {
+  background: linear-gradient(to right, #f97373, #ef4444);
+  color: #111827;
+}
+
+.action-btn + .action-btn {
+  margin-left: 6px;
+}
+
 .action-btn:disabled {
   opacity: 0.6;
   cursor: default;

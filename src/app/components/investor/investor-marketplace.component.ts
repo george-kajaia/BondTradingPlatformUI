@@ -64,6 +64,7 @@ export class InvestorMarketplaceComponent implements OnInit {
 
   // UI state for actions
   markingResellId: string | null = null;
+  cancelingResellId: string | null = null;
   buyingPrimaryId: string | null = null;
   buyingSecondaryId: string | null = null;
 
@@ -133,7 +134,7 @@ export class InvestorMarketplaceComponent implements OnInit {
     this.yourBondsError = '';
 
     this.http
-      .get<Bond>(`${this.bondBaseUrl}/MarkBondForResell`, {
+      .post<Bond>(`${this.bondBaseUrl}/MarkBondForResell`, null, {
         params: { bondId: bond.id }
       })
       .subscribe({
@@ -146,6 +147,28 @@ export class InvestorMarketplaceComponent implements OnInit {
           console.error(err);
           this.markingResellId = null;
           this.yourBondsError = 'Failed to mark bond for resell.';
+        }
+      });
+  }
+
+  cancelReselling(bond: BondDto): void {
+    this.cancelingResellId = bond.id;
+    this.yourBondsError = '';
+
+    this.http
+      .post<Bond>(`${this.bondBaseUrl}/CancelReselling`, null, {
+        params: { bondId: bond.id }
+      })
+      .subscribe({
+        next: _ => {
+          this.cancelingResellId = null;
+          // Refresh your bonds after cancelling resell
+          this.loadYourBonds();
+        },
+        error: err => {
+          console.error(err);
+          this.cancelingResellId = null;
+          this.yourBondsError = 'Failed to cancel reselling for this bond.';
         }
       });
   }
